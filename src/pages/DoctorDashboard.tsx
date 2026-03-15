@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { BarChart3, Users, FileText, TrendingUp, MapPin } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import Navbar from "@/components/Navbar";
+import { MOCK_VILLAGE_DATA } from "@/store/appStore";
 
 const COLORS = ["hsl(4, 74%, 63%)", "hsl(214, 84%, 56%)", "hsl(145, 52%, 42%)", "hsl(194, 86%, 64%)", "hsl(40, 90%, 55%)"];
 
