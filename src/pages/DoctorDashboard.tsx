@@ -12,9 +12,9 @@ export default function DoctorDashboard() {
   const { doctorProfile, doctorReports } = useAppContext();
   const [selectedVillage, setSelectedVillage] = useState<string | null>(null);
 
-  const { MOCK_VILLAGE_DATA } = require("@/store/appStore");
-  const villageChartData = MOCK_VILLAGE_DATA.map((v: any) => ({ name: v.village, cases: v.totalCases }));
-  const selected = MOCK_VILLAGE_DATA.find((v: any) => v.village === selectedVillage);
+
+  const villageChartData = MOCK_VILLAGE_DATA.map((v) => ({ name: v.village, cases: v.totalCases }));
+  const selected = MOCK_VILLAGE_DATA.find((v) => v.village === selectedVillage);
 
   return (
     <div className="min-h-screen bg-background">
