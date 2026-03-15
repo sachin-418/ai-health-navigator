@@ -73,7 +73,7 @@ export default function DoctorDashboard() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6">
             <h3 className="font-bold text-foreground mb-4">{selected.village} — Disease Breakdown</h3>
             <div className="space-y-3">
-              {selected.diseases.map((d: any) => {
+              {selected.diseases.map((d) => {
                 const levelColor = d.level === "severe" ? "bg-destructive" : d.level === "moderate" ? "bg-accent" : "bg-secondary";
                 return (
                   <div key={d.name} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
