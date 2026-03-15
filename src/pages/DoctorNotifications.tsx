@@ -20,7 +20,7 @@ export default function DoctorNotifications() {
       solution,
       doctorName: doctorProfile?.phone || "Doctor",
       doctorType: doctorProfile?.doctorType || "General",
-      ...(slotType && slotDateTime ? { timeSlot: { type: slotType as any, dateTime: slotDateTime } } : {}),
+      ...(slotType && slotDateTime ? { timeSlot: { type: slotType as string, dateTime: slotDateTime } } : {}),
     };
     updateDoctorReport(selectedReport.id, reply);
     addNotification({
