@@ -58,8 +58,8 @@ export default function DoctorDashboard() {
                 <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                 <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
                 <Bar dataKey="cases" radius={[6, 6, 0, 0]} cursor="pointer"
-                  onClick={(data: any) => setSelectedVillage(data.name)}>
-                  {villageChartData.map((_: any, i: number) => (
+                  onClick={(_data: unknown, index: number) => setSelectedVillage(villageChartData[index].name)}>
+                  {villageChartData.map((_, i) => (
                     <Cell key={i} fill={COLORS[i % COLORS.length]} />
                   ))}
                 </Bar>
