@@ -10,6 +10,10 @@ export interface PatientProfile {
   location: string;
   profilePic?: string;
   name?: string;
+<<<<<<< HEAD
+=======
+  bio?: string;
+>>>>>>> a0dc8d9 (initial)
 }
 
 export interface DoctorProfile {
@@ -18,6 +22,14 @@ export interface DoctorProfile {
   doctorType: string;
   password: string;
   name?: string;
+<<<<<<< HEAD
+=======
+  profilePic?: string;
+  bio?: string;
+  location?: string;
+  lat?: number;
+  lng?: number;
+>>>>>>> a0dc8d9 (initial)
 }
 
 export interface ChatMessage {

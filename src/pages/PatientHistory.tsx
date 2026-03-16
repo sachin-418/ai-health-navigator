@@ -2,6 +2,10 @@ import { useAppContext } from "@/context/AppContext";
 import { motion } from "framer-motion";
 import { History, Download } from "lucide-react";
 import Navbar from "@/components/Navbar";
+<<<<<<< HEAD
+=======
+import DoctorReplyCard from "@/components/DoctorReplyCard";
+>>>>>>> a0dc8d9 (initial)
 
 const levelColors: Record<string, string> = {
   mild: "text-secondary",
@@ -57,10 +61,14 @@ export default function PatientHistory() {
                   </button>
                 </div>
                 {report.doctorReply && (
+<<<<<<< HEAD
                   <div className="mt-3 p-3 rounded-lg bg-secondary/5 border border-secondary/20">
                     <p className="text-xs font-semibold text-secondary mb-1">Doctor's Response</p>
                     <p className="text-sm text-foreground">{report.doctorReply.solution}</p>
                   </div>
+=======
+                  <DoctorReplyCard reply={report.doctorReply} />
+>>>>>>> a0dc8d9 (initial)
                 )}
               </motion.div>
             ))}

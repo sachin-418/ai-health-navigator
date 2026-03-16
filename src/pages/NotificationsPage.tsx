@@ -2,6 +2,14 @@ import { useAppContext } from "@/context/AppContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, FileText, MessageCircle, Clock } from "lucide-react";
 import Navbar from "@/components/Navbar";
+<<<<<<< HEAD
+=======
+import DoctorReplyCard from "@/components/DoctorReplyCard";
+import type { DoctorReply } from "@/store/appStore";
+
+const isDoctorReply = (value: unknown): value is DoctorReply =>
+  Boolean(value) && typeof value === "object" && "solution" in (value as DoctorReply);
+>>>>>>> a0dc8d9 (initial)
 
 export default function NotificationsPage() {
   const { notifications, markNotificationRead } = useAppContext();
@@ -45,6 +53,10 @@ export default function NotificationsPage() {
                       <p className="text-[10px] text-muted-foreground mt-1 flex items-center gap-1">
                         <Clock className="h-3 w-3" /> {n.timestamp.toLocaleString()}
                       </p>
+<<<<<<< HEAD
+=======
+                      {n.type === "reply" && isDoctorReply(n.data) ? <DoctorReplyCard reply={n.data} title="Doctor Solution" /> : null}
+>>>>>>> a0dc8d9 (initial)
                     </div>
                   </div>
                 </motion.div>

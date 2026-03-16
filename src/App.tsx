@@ -8,6 +8,11 @@ import SplashScreen from "@/components/SplashScreen";
 import RoleSelect from "@/pages/RoleSelect";
 import PatientLogin from "@/pages/PatientLogin";
 import DoctorLogin from "@/pages/DoctorLogin";
+<<<<<<< HEAD
+=======
+import PatientSignup from "@/pages/PatientSignup";
+import DoctorSignup from "@/pages/DoctorSignup";
+>>>>>>> a0dc8d9 (initial)
 import Home from "@/pages/Home";
 import ChatPage from "@/pages/ChatPage";
 import CheckupResult from "@/pages/CheckupResult";
@@ -24,7 +29,19 @@ import NotFound from "@/pages/NotFound";
 const queryClient = new QueryClient();
 
 function AppRoutes() {
+<<<<<<< HEAD
   const { isLoggedIn, showSplash, role } = useAppContext();
+=======
+  const { isLoggedIn, showSplash, role, authLoading } = useAppContext();
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-muted-foreground">
+        Restoring session...
+      </div>
+    );
+  }
+>>>>>>> a0dc8d9 (initial)
 
   if (showSplash) return <SplashScreen />;
 
@@ -34,6 +51,11 @@ function AppRoutes() {
       <Route path="/" element={isLoggedIn ? <Navigate to={role === "doctor" ? "/doctor/dashboard" : "/home"} /> : <RoleSelect />} />
       <Route path="/login/patient" element={<PatientLogin />} />
       <Route path="/login/doctor" element={<DoctorLogin />} />
+<<<<<<< HEAD
+=======
+      <Route path="/signup/patient" element={<PatientSignup />} />
+      <Route path="/signup/doctor" element={<DoctorSignup />} />
+>>>>>>> a0dc8d9 (initial)
 
       {/* Patient routes */}
       <Route path="/home" element={<Home />} />

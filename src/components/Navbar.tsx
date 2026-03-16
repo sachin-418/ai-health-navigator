@@ -18,16 +18,25 @@ const doctorLinks = [
 ];
 
 export default function Navbar() {
+<<<<<<< HEAD
   const { role, patientProfile, doctorProfile, notifications, setRole, setIsLoggedIn } = useAppContext();
+=======
+  const { role, notifications, signOut } = useAppContext();
+>>>>>>> a0dc8d9 (initial)
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const links = role === "doctor" ? doctorLinks : patientLinks;
   const unreadCount = notifications.filter((n) => !n.read).length;
 
+<<<<<<< HEAD
   const handleLogout = () => {
     setRole(null);
     setIsLoggedIn(false);
+=======
+  const handleLogout = async () => {
+    await signOut();
+>>>>>>> a0dc8d9 (initial)
     navigate("/");
   };
 

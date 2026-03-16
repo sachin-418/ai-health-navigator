@@ -1,8 +1,25 @@
+<<<<<<< HEAD
 import React, { createContext, useContext, useState, ReactNode } from "react";
+=======
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+>>>>>>> a0dc8d9 (initial)
 import type {
   UserRole, PatientProfile, DoctorProfile, ChatMessage, CheckupResult,
   Report, DoctorReply, Notification
 } from "@/store/appStore";
+<<<<<<< HEAD
+=======
+import {
+  loginDoctor,
+  loginPatient,
+  logoutUser,
+  restoreAuthSession,
+  signUpDoctor,
+  signUpPatient,
+  updateUserProfile,
+  type ProfileUpdateData,
+} from "@/lib/auth";
+>>>>>>> a0dc8d9 (initial)
 
 interface AppState {
   role: UserRole;
@@ -32,6 +49,16 @@ interface AppState {
   doctorReports: Report[];
   addDoctorReport: (r: Report) => void;
   updateDoctorReport: (id: string, reply: DoctorReply) => void;
+<<<<<<< HEAD
+=======
+  authLoading: boolean;
+  signInPatient: (name: string, phone: string) => Promise<{ error?: string }>;
+  registerPatient: (name: string, phone: string, age: string, occupation: string, location: string, verificationToken: string) => Promise<{ error?: string }>;
+  signInDoctor: (phone: string, password: string) => Promise<{ error?: string }>;
+  registerDoctor: (phone: string, password: string, verificationToken: string, name: string, location?: string, lat?: number, lng?: number) => Promise<{ error?: string }>;
+  signOut: () => Promise<void>;
+  updateProfile: (data: ProfileUpdateData) => Promise<{ error?: string }>;
+>>>>>>> a0dc8d9 (initial)
 }
 
 const AppContext = createContext<AppState | undefined>(undefined);
@@ -53,6 +80,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState("en");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSplash, setShowSplash] = useState(false);
+<<<<<<< HEAD
+=======
+  const [authLoading, setAuthLoading] = useState(true);
+>>>>>>> a0dc8d9 (initial)
   const [patientHistory, setPatientHistory] = useState<Report[]>([]);
   const [doctorReports, setDoctorReports] = useState<Report[]>([
     // Mock initial report for doctor
@@ -85,8 +116,101 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
   const addPatientHistory = (r: Report) => setPatientHistory((prev) => [...prev, r]);
   const addDoctorReport = (r: Report) => setDoctorReports((prev) => [...prev, r]);
+<<<<<<< HEAD
   const updateDoctorReport = (id: string, reply: DoctorReply) =>
     setDoctorReports((prev) => prev.map((r) => (r.id === id ? { ...r, doctorReply: reply } : r)));
+=======
+  const updateDoctorReport = (id: string, reply: DoctorReply) => {
+    setDoctorReports((prev) => prev.map((r) => (r.id === id ? { ...r, doctorReply: reply } : r)));
+    setPatientHistory((prev) => prev.map((r) => (r.id === id ? { ...r, doctorReply: reply } : r)));
+  };
+
+  const clearAuthState = () => {
+    setRole(null);
+    setPatientProfile(null);
+    setDoctorProfile(null);
+    setIsLoggedIn(false);
+  };
+
+  const applyResolvedAuth = (resolved: {
+    role: UserRole;
+    patientProfile: PatientProfile | null;
+    doctorProfile: DoctorProfile | null;
+  }) => {
+    setRole(resolved.role);
+    setPatientProfile(resolved.patientProfile);
+    setDoctorProfile(resolved.doctorProfile);
+    setIsLoggedIn(Boolean(resolved.role));
+  };
+
+  useEffect(() => {
+    let active = true;
+
+    const syncSession = async () => {
+      const result = await restoreAuthSession();
+      if (!active) return;
+
+      if (result.data) {
+        applyResolvedAuth(result.data);
+      } else {
+        clearAuthState();
+      }
+
+      setAuthLoading(false);
+    };
+
+    void syncSession();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const signInPatientHandler = async (name: string, phone: string) => {
+    const result = await loginPatient(name, phone);
+    if (result.data) {
+      applyResolvedAuth(result.data);
+    }
+    return { error: result.error };
+  };
+
+  const registerPatientHandler = async (name: string, phone: string, age: string, occupation: string, location: string, verificationToken: string) => {
+    const result = await signUpPatient(name, phone, age, occupation, location, verificationToken);
+    if (result.data) {
+      applyResolvedAuth(result.data);
+    }
+    return { error: result.error };
+  };
+
+  const signInDoctorHandler = async (phone: string, password: string) => {
+    const result = await loginDoctor(phone, password);
+    if (result.data) {
+      applyResolvedAuth(result.data);
+    }
+    return { error: result.error };
+  };
+
+  const registerDoctorHandler = async (phone: string, password: string, verificationToken: string, name: string, location?: string, lat?: number, lng?: number) => {
+    const result = await signUpDoctor(phone, password, verificationToken, name, location, lat, lng);
+    if (result.data) {
+      applyResolvedAuth(result.data);
+    }
+    return { error: result.error };
+  };
+
+  const signOutHandler = async () => {
+    await logoutUser();
+    clearAuthState();
+  };
+
+  const updateProfileHandler = async (data: ProfileUpdateData) => {
+    const result = await updateUserProfile(data);
+    if (result.data) {
+      applyResolvedAuth(result.data);
+    }
+    return { error: result.error };
+  };
+>>>>>>> a0dc8d9 (initial)
 
   return (
     <AppContext.Provider
@@ -96,6 +220,16 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         reports, addReport, notifications, addNotification, markNotificationRead,
         language, setLanguage, isLoggedIn, setIsLoggedIn, showSplash, setShowSplash,
         patientHistory, addPatientHistory, doctorReports, addDoctorReport, updateDoctorReport,
+<<<<<<< HEAD
+=======
+        authLoading,
+        signInPatient: signInPatientHandler,
+        registerPatient: registerPatientHandler,
+        signInDoctor: signInDoctorHandler,
+        registerDoctor: registerDoctorHandler,
+        signOut: signOutHandler,
+        updateProfile: updateProfileHandler,
+>>>>>>> a0dc8d9 (initial)
       }}
     >
       {children}

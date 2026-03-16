@@ -60,6 +60,29 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+<<<<<<< HEAD
+=======
+## MongoDB setup
+
+The auth flow now uses a local Express API with MongoDB.
+
+1. Ensure MongoDB is running locally or update `MONGODB_URI` in `.env`.
+2. Copy [.env.example](.env.example) to `.env` and set `MONGODB_URI`, `JWT_SECRET`, `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `TWILIO_PHONE_NUMBER`.
+3. Install dependencies with `npm i`.
+4. Run both frontend and backend together with `npm run dev:full`.
+
+Implementation notes:
+
+- Patient signup stores `name`, `phone`, `age`, `occupation`, and `location` in MongoDB.
+- Patient signup sends a 6-digit OTP with Twilio, stores the OTP in MongoDB for 5 minutes, verifies the OTP, and then creates the account.
+- Doctor signup also sends and verifies a 6-digit OTP before account creation.
+- Patient and doctor phone inputs use a fixed `+91` prefix in the UI and accept a 10-digit Indian mobile number.
+- Patient login uses the same `name` and verified `phone` combination used at signup.
+- Doctor signup and login use `phone` and `password` (hashed with bcrypt).
+- Doctor replies are rendered in a patient-friendly card with clear line breaks and follow-up appointment details.
+- Frontend auth session uses a JWT token stored in browser local storage.
+
+>>>>>>> a0dc8d9 (initial)
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.

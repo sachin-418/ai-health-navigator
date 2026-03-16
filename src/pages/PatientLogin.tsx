@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "@/context/AppContext";
@@ -31,6 +32,49 @@ export default function PatientLogin() {
     setPatientProfile({ ...form, profilePic });
     setRole("patient");
     setIsLoggedIn(true);
+=======
+import { FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "@/context/AppContext";
+import { INDIAN_PHONE_PREFIX, isValidIndianPhoneInput, sanitizeIndianPhoneInput, toIndianPhoneNumber } from "@/lib/phone";
+import { motion } from "framer-motion";
+import { ArrowRight, Heart, Phone, User } from "lucide-react";
+
+export default function PatientLogin() {
+  const navigate = useNavigate();
+  const { signInPatient, setShowSplash } = useAppContext();
+  const [form, setForm] = useState({ name: "", phone: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handlePhoneChange = (phone: string) => {
+    setForm({ ...form, phone: sanitizeIndianPhoneInput(phone) });
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!form.name || !form.phone) {
+      setError("Enter your name and phone number.");
+      return;
+    }
+
+    if (!isValidIndianPhoneInput(form.phone)) {
+      setError("Enter a 10-digit Indian mobile number.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    const result = await signInPatient(form.name, toIndianPhoneNumber(form.phone));
+    setLoading(false);
+
+    if (result.error) {
+      setError(result.error);
+      return;
+    }
+
+>>>>>>> a0dc8d9 (initial)
     setShowSplash(true);
     navigate("/home");
   };
@@ -38,7 +82,11 @@ export default function PatientLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="absolute inset-0 overflow-hidden">
+<<<<<<< HEAD
         <div className="absolute top-[-20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
+=======
+        <div className="absolute top-[-16%] right-[-10%] h-[520px] w-[520px] rounded-full bg-primary/5 blur-3xl" />
+>>>>>>> a0dc8d9 (initial)
       </div>
 
       <motion.div
@@ -46,6 +94,7 @@ export default function PatientLogin() {
         animate={{ opacity: 1, y: 0 }}
         className="relative glass-card w-full max-w-md p-8"
       >
+<<<<<<< HEAD
         <h2 className="text-2xl font-bold text-foreground mb-1">Patient Login</h2>
         <p className="text-muted-foreground mb-6 text-sm">
           {step === "form" ? "Enter your details to get started" : "Verify your phone number"}
@@ -155,10 +204,71 @@ export default function PatientLogin() {
             </motion.button>
           </div>
         )}
+=======
+        <div className="flex items-center gap-3 mb-6">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary">
+            <Heart className="h-6 w-6 text-primary-foreground" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-foreground">Patient Login</h2>
+            <p className="text-sm text-muted-foreground">Log in with the same name and phone used at signup</p>
+          </div>
+        </div>
+
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full pl-10 pr-4 py-3 rounded-lg bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+          </div>
+
+          <div className="relative">
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <div className="flex items-center rounded-lg border border-border bg-muted/50 focus-within:ring-2 focus-within:ring-primary/50">
+              <span className="border-r border-border px-4 py-3 text-sm font-semibold text-foreground">{INDIAN_PHONE_PREFIX}</span>
+              <input
+                type="tel"
+                inputMode="numeric"
+                placeholder="9876543210"
+                value={form.phone}
+                onChange={(e) => handlePhoneChange(e.target.value)}
+                className="w-full bg-transparent px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {error ? <p className="text-sm text-destructive">{error}</p> : null}
+
+          <motion.button
+            type="submit"
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            disabled={loading}
+            className="w-full gradient-primary text-primary-foreground py-3 rounded-lg font-semibold flex items-center justify-center gap-2 mt-2 disabled:opacity-70"
+          >
+            {loading ? "Logging in..." : "Login"} <ArrowRight className="h-4 w-4" />
+          </motion.button>
+        </form>
+>>>>>>> a0dc8d9 (initial)
 
         <button onClick={() => navigate("/")} className="mt-4 w-full text-center text-sm text-muted-foreground hover:text-foreground transition-colors">
           ← Back to role selection
         </button>
+<<<<<<< HEAD
+=======
+
+        <p className="mt-4 text-center text-sm text-muted-foreground">
+          Need a new patient account?{" "}
+          <Link to="/signup/patient" className="font-semibold text-primary hover:underline">
+            Sign up here
+          </Link>
+        </p>
+>>>>>>> a0dc8d9 (initial)
       </motion.div>
     </div>
   );

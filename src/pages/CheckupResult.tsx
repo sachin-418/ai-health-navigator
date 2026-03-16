@@ -91,7 +91,11 @@ ${result.safetyTips.map((t, i) => `  ${i + 1}. ${t}`).join("\n")}
     if (!result || !patientProfile) return;
     const report: Report = {
       id: Date.now().toString(),
+<<<<<<< HEAD
       patientName: patientProfile.phone,
+=======
+      patientName: patientProfile.name || patientProfile.phone,
+>>>>>>> a0dc8d9 (initial)
       patientPhone: patientProfile.phone,
       patientAge: patientProfile.age,
       patientOccupation: patientProfile.occupation,

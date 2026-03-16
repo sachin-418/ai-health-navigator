@@ -3,6 +3,10 @@ import { useAppContext } from "@/context/AppContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, FileText, Send, Phone, Video, MapPin, Clock, X, User } from "lucide-react";
 import Navbar from "@/components/Navbar";
+<<<<<<< HEAD
+=======
+import DoctorReplyCard from "@/components/DoctorReplyCard";
+>>>>>>> a0dc8d9 (initial)
 import type { DoctorReply, Report } from "@/store/appStore";
 
 export default function DoctorNotifications() {
@@ -26,8 +30,13 @@ export default function DoctorNotifications() {
     addNotification({
       id: Date.now().toString(),
       type: "reply",
+<<<<<<< HEAD
       title: "Reply Sent",
       message: `Solution sent to patient ${selectedReport.patientName}`,
+=======
+      title: "Doctor Solution Ready",
+      message: `Dr. ${doctorProfile?.phone || "Doctor"} shared treatment guidance for ${selectedReport.patientName}.`,
+>>>>>>> a0dc8d9 (initial)
       data: reply,
       read: false,
       timestamp: new Date(),
@@ -111,6 +120,7 @@ export default function DoctorNotifications() {
                 </div>
 
                 {selectedReport.doctorReply ? (
+<<<<<<< HEAD
                   <div className="p-3 rounded-lg bg-secondary/5 border border-secondary/20">
                     <p className="text-xs font-semibold text-secondary mb-1">Your Reply</p>
                     <p className="text-sm text-foreground">{selectedReport.doctorReply.solution}</p>
@@ -120,6 +130,9 @@ export default function DoctorNotifications() {
                       </p>
                     )}
                   </div>
+=======
+                  <DoctorReplyCard reply={selectedReport.doctorReply} title="Your Reply" />
+>>>>>>> a0dc8d9 (initial)
                 ) : (
                   <div className="space-y-4">
                     <textarea
